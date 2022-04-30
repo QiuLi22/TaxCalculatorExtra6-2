@@ -17,10 +17,9 @@ namespace TaxCalculator
             InitializeComponent();
         }
         //Qiu Li 4/29/2022 Extra Exercise 6-2
-        private void btnCalculate_Click(object sender, EventArgs e)
-        {
-            decimal income = Convert.ToDecimal(txtIncome.Text);
 
+        private decimal CalucateTax(decimal income)
+        {
             decimal tax = 0m;
 
             if (income <= 9875)
@@ -38,12 +37,26 @@ namespace TaxCalculator
             else if (income > 518401)
                 tax = 156235m + (int)((income - 518400) * .37m);
 
+            return tax;
+        }
+        private void btnCalculate_Click(object sender, EventArgs e)
+        {
+            decimal income = Convert.ToDecimal(txtIncome.Text);
+            decimal tax = 0m;
+
+            tax = CalucateTax(income);
+
             txtTax.Text = tax.ToString();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtIncome_TextChanged(object sender, EventArgs e)
+        {
+            txtTax.Text = "";
         }
     }
 }
